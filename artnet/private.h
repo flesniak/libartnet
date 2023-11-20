@@ -22,10 +22,17 @@
 #  include <config.h>
 #endif
 
-#if !defined(WIN32) && !defined(_MSC_VER)
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#ifdef LWIP
+  // #include <lwip/sockets.h>
+  #include "lwip/err.h"
+  #include "lwip/sys.h"
+#else
+  #error no LWIP defined
+  #if !defined(WIN32) && !defined(_MSC_VER)
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+  #endif
 #endif
 
 #include <string.h>
